@@ -98,6 +98,7 @@ namespace WindowsFormsApp1
         private void button10_Click(object sender, EventArgs e)
         {
             againstAI = true;
+            lbl1.Text = "Playing against AI";
             if(ai.firstPlayer==true)
             {
                 AIgame();
@@ -109,6 +110,7 @@ namespace WindowsFormsApp1
             p1.firstPlayer = false;
             ai.firstPlayer = true;
             ai_is_firstPlayer = true;
+            lbl2.Text = "AI is first player";
         }
 
         private Player check_whos_move()
