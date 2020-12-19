@@ -38,6 +38,7 @@
             this.btn9 = new System.Windows.Forms.Button();
             this.button10 = new System.Windows.Forms.Button();
             this.btn1 = new System.Windows.Forms.Button();
+            this.cbn1 = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btn2
@@ -149,11 +150,23 @@
             this.btn1.UseVisualStyleBackColor = true;
             this.btn1.Click += new System.EventHandler(this.btn1_Click);
             // 
+            // cbn1
+            // 
+            this.cbn1.AutoSize = true;
+            this.cbn1.Location = new System.Drawing.Point(573, 156);
+            this.cbn1.Name = "cbn1";
+            this.cbn1.Size = new System.Drawing.Size(75, 17);
+            this.cbn1.TabIndex = 10;
+            this.cbn1.Text = "2nd player";
+            this.cbn1.UseVisualStyleBackColor = true;
+            this.cbn1.CheckedChanged += new System.EventHandler(this.cbn1_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.cbn1);
             this.Controls.Add(this.btn1);
             this.Controls.Add(this.button10);
             this.Controls.Add(this.btn9);
@@ -166,7 +179,9 @@
             this.Controls.Add(this.btn2);
             this.Name = "Form1";
             this.Text = "Form1";
+            this.Load += new System.EventHandler(this.Form1_Load);
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -181,6 +196,7 @@
         private System.Windows.Forms.Button btn9;
         private System.Windows.Forms.Button button10;
         private System.Windows.Forms.Button btn1;
+        private System.Windows.Forms.CheckBox cbn1;
     }
 }
 

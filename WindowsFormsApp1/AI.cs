@@ -102,7 +102,7 @@ namespace WindowsFormsApp1
 
             return 0;
         }
-        public void choose_move(char[,] b, Player p)
+        public void choose_move(char[,] b, Player p,bool fp)
         {
             this.board = b;
             int best = -1000;
@@ -114,7 +114,7 @@ namespace WindowsFormsApp1
                     if(board[i,j]=='_')
                     {
                         board[i, j] = x_or_o();
-                        int move = minimax(0,true,p);
+                        int move = minimax(0,fp,p); //ako je fp == true, bot nam je drugi igrac
                         board[i, j] = '_';
                         if(move > best)
                         {
@@ -135,44 +135,87 @@ namespace WindowsFormsApp1
                 return end;
             else if (end == -10)
                 return end;
-            else if (no_moves_left()==false)
+            else if (no_moves_left() == false)
                 return 0;
 
-            if(ismax)
+            if (p.firstPlayer)
             {
-                int best = -1000;
-                for(int r=0;r<3;r++)
+                if (ismax)
                 {
-                    for(int c=0;c<3;c++)
+                    int best = -1000;
+                    for (int r = 0; r < 3; r++)
                     {
-                        if (board[r, c] == '_')
+                        for (int c = 0; c < 3; c++)
                         {
-                            board[r, c] = p.x_or_o();
-                            int score = minimax(depth+1, false, p);
-                            board[r, c] = '_';
-                            best = Math.Max(score,best);
+                            if (board[r, c] == '_')
+                            {
+                                board[r, c] = p.x_or_o();
+                                int score = minimax(depth + 1, false, p);
+                                board[r, c] = '_';
+                                best = Math.Max(score, best);
+                            }
                         }
                     }
+                    return best;
                 }
-                return best;
+                else
+                {
+                    int best = 1000;
+                    for (int r = 0; r < 3; r++)
+                    {
+                        for (int c = 0; c < 3; c++)
+                        {
+                            if (board[r, c] == '_')
+                            {
+                                board[r, c] = x_or_o();
+                                int score = minimax(depth + 1, true, p);
+                                board[r, c] = '_';
+                                best = Math.Min(score, best);
+                            }
+                        }
+                    }
+                    return best;
+                }
             }
+
             else
             {
-                int best = 1000;
-                for(int r=0;r<3;r++)
+                if (ismax)
                 {
-                    for(int c=0;c<3;c++)
+                    int best = -1000;
+                    for (int r = 0; r < 3; r++)
                     {
-                        if(board[r,c] == '_')
+                        for (int c = 0; c < 3; c++)
                         {
-                            board[r, c] = x_or_o();
-                            int score = minimax(depth+1,true,p);
-                            board[r, c] = '_';
-                            best = Math.Min(score,best);
+                            if (board[r, c] == '_')
+                            {
+                                board[r, c] = x_or_o();
+                                int score = minimax(depth + 1, false, p);
+                                board[r, c] = '_';
+                                best = Math.Max(score, best);
+                            }
                         }
                     }
+                    return best;
                 }
-                return best;
+                else
+                {
+                    int best = 1000;
+                    for (int r = 0; r < 3; r++)
+                    {
+                        for (int c = 0; c < 3; c++)
+                        {
+                            if (board[r, c] == '_')
+                            {
+                                board[r, c] = p.x_or_o();
+                                int score = minimax(depth + 1, true, p);
+                                board[r, c] = '_';
+                                best = Math.Min(score, best);
+                            }
+                        }
+                    }
+                    return best;
+                }
             }
         }
     }

@@ -16,6 +16,7 @@ namespace WindowsFormsApp1
         //private Player p2 = new Player(false);
         private AI ai = new AI();
         private bool againstAI = false;
+        private bool ai_is_firstPlayer = false;
 
         private char[,] table = new char[3,3]{
             {'_','_','_'},
@@ -33,63 +34,63 @@ namespace WindowsFormsApp1
         private void btn1_Click(object sender, EventArgs e)
         {
             game(btn1.TabIndex); //menjamo tabelu na poziciji [0,0] sa igracem ciji potez
-            if (n % 2 != 0 && againstAI == true)
+            if ((n % 2 != 0 && againstAI == true) || (ai_is_firstPlayer && againstAI == true))
                 AIgame();
         }
 
         private void btn2_Click(object sender, EventArgs e)
         {
             game(btn2.TabIndex); //menjamo tabelu na poziciji [0,1] sa igracem ciji potez
-            if (n % 2 != 0 && againstAI == true)
+            if ((n % 2 != 0 && againstAI == true) || (ai_is_firstPlayer && againstAI == true))
                 AIgame();
         }
 
         private void btn3_Click(object sender, EventArgs e)
         {
             game(btn3.TabIndex); //menjamo tabelu na poziciji [0,2] sa igracem ciji potez
-            if (n % 2 != 0 && againstAI == true)
+            if((n % 2 != 0 && againstAI == true) || (ai_is_firstPlayer && againstAI == true))
                 AIgame();
         }
 
         private void btn4_Click(object sender, EventArgs e)
         {
             game(btn4.TabIndex); //menjamo tabelu na poziciji [1,0] sa igracem ciji potez
-            if (n % 2 != 0 && againstAI == true)
+            if ((n % 2 != 0 && againstAI == true) || (ai_is_firstPlayer && againstAI == true))
                 AIgame();
         }
 
         private void btn5_Click(object sender, EventArgs e)
         {
             game(btn5.TabIndex); //menjamo tabelu na poziciji [1,1] sa igracem ciji potez
-            if (n % 2 != 0 && againstAI == true)
+            if ((n % 2 != 0 && againstAI == true) || (ai_is_firstPlayer && againstAI == true))
                 AIgame();
         }
 
         private void btn6_Click(object sender, EventArgs e)
         {
             game(btn6.TabIndex); //menjamo tabelu na poziciji [1,2] sa igracem ciji potez
-            if (n % 2 != 0 && againstAI == true)
+            if ((n % 2 != 0 && againstAI == true) || (ai_is_firstPlayer && againstAI == true))
                 AIgame();
         }
 
         private void btn7_Click(object sender, EventArgs e)
         {
             game(btn7.TabIndex); //menjamo tabelu na poziciji [2,0] sa igracem ciji potez
-            if (n % 2 != 0 && againstAI == true)
+            if ((n % 2 != 0 && againstAI == true) || (ai_is_firstPlayer && againstAI == true))
                 AIgame();
         }
 
         private void btn8_Click(object sender, EventArgs e)
         {
             game(btn8.TabIndex); //menjamo tabelu na poziciji [2,1] sa igracem ciji potez
-            if (n % 2 != 0 && againstAI == true)
+            if ((n % 2 != 0 && againstAI == true) || (ai_is_firstPlayer && againstAI == true))
                 AIgame();
         }
 
         private void btn9_Click(object sender, EventArgs e)
         {
             game(btn9.TabIndex); //menjamo tabelu na poziciji [2,2] sa igracem ciji potez, tekst na tom dugmetu i njegovu funkcionalnost
-            if(n%2!=0 && againstAI==true)
+            if ((n % 2 != 0 && againstAI == true) || (ai_is_firstPlayer && againstAI == true))
                 AIgame();
             
         }
@@ -97,15 +98,34 @@ namespace WindowsFormsApp1
         private void button10_Click(object sender, EventArgs e)
         {
             againstAI = true;
+            if(ai.firstPlayer==true)
+            {
+                AIgame();
+
+            }
+        }
+        private void cbn1_CheckedChanged(object sender, EventArgs e)
+        {
+            p1.firstPlayer = false;
+            ai.firstPlayer = true;
+            ai_is_firstPlayer = true;
         }
 
         private Player check_whos_move()
         {
-            if (n % 2 == 0)
+            if (n % 2 == 0 && !ai_is_firstPlayer)
                 return p1; //player1 uvek igra prvi, tj. on uvek igra tokom poteza parnog indeksa
 
-            else
+            else if (n % 2 != 0 && !ai_is_firstPlayer)
                 return ai;
+
+            else if (ai_is_firstPlayer && n % 2 == 0)
+                return ai;
+
+            else if (ai_is_firstPlayer && n % 2 != 0)
+                return p1;
+
+            else return null;
         }
         private void change_table(int polje) //menja polje u tabeli da bi se mogao proveriti kraj igre
         {
@@ -221,7 +241,7 @@ namespace WindowsFormsApp1
                 }
             }
 
-            else if (n == 8)
+            else if (n == 9)
                 return 0;
 
             return -1;
@@ -252,7 +272,7 @@ namespace WindowsFormsApp1
 
         void AIgame()
         {
-            ai.choose_move(table,p1);
+            ai.choose_move(table,p1,p1.firstPlayer);
             switch(ai.Row)
             {
                 case 0:
@@ -299,6 +319,13 @@ namespace WindowsFormsApp1
                     break;
             }
         }
+
+        private void Form1_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        
     }
 }
 
