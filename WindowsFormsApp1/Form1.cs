@@ -13,13 +13,14 @@ namespace WindowsFormsApp1
     public partial class Form1 : Form
     {
         private Player p1 = new Player(true);
-        private Player p2 = new Player(false);
-        private Player ai = new AI();
+        //private Player p2 = new Player(false);
+        private AI ai = new AI();
+        private bool againstAI = false;
 
-        private char[,] table = {
+        private char[,] table = new char[3,3]{
             {'_','_','_'},
             {'_','_','_'},
-            { '_','_','_'}
+            {'_','_','_'}
         }; 
 
         private int n = 0;
@@ -31,56 +32,71 @@ namespace WindowsFormsApp1
 
         private void btn1_Click(object sender, EventArgs e)
         {
-            btn1.Text = char.ToString(check_whos_move().x_or_o()); //menjamo tekst buttona
-            game(0); //menjamo tabelu na poziciji [0,0] sa igracem ciji potez
+            game(btn1.TabIndex); //menjamo tabelu na poziciji [0,0] sa igracem ciji potez
+            if (n % 2 != 0 && againstAI == true)
+                AIgame();
         }
 
         private void btn2_Click(object sender, EventArgs e)
         {
-            btn2.Text = char.ToString(check_whos_move().x_or_o()); //menjamo tekst buttona
-            game(1); //menjamo tabelu na poziciji [0,0] sa igracem ciji potez
+            game(btn2.TabIndex); //menjamo tabelu na poziciji [0,1] sa igracem ciji potez
+            if (n % 2 != 0 && againstAI == true)
+                AIgame();
         }
 
         private void btn3_Click(object sender, EventArgs e)
         {
-            btn3.Text = char.ToString(check_whos_move().x_or_o()); //menjamo tekst buttona
-            game(2); //menjamo tabelu na poziciji [0,0] sa igracem ciji potez
+            game(btn3.TabIndex); //menjamo tabelu na poziciji [0,2] sa igracem ciji potez
+            if (n % 2 != 0 && againstAI == true)
+                AIgame();
         }
 
         private void btn4_Click(object sender, EventArgs e)
         {
-            btn4.Text = char.ToString(check_whos_move().x_or_o()); //menjamo tekst buttona
-            game(3); //menjamo tabelu na poziciji [0,0] sa igracem ciji potez
+            game(btn4.TabIndex); //menjamo tabelu na poziciji [1,0] sa igracem ciji potez
+            if (n % 2 != 0 && againstAI == true)
+                AIgame();
         }
 
         private void btn5_Click(object sender, EventArgs e)
         {
-            btn5.Text = char.ToString(check_whos_move().x_or_o()); //menjamo tekst buttona
-            game(4); //menjamo tabelu na poziciji [0,0] sa igracem ciji potez
+            game(btn5.TabIndex); //menjamo tabelu na poziciji [1,1] sa igracem ciji potez
+            if (n % 2 != 0 && againstAI == true)
+                AIgame();
         }
 
         private void btn6_Click(object sender, EventArgs e)
         {
-            btn6.Text = char.ToString(check_whos_move().x_or_o()); //menjamo tekst buttona
-            game(5); //menjamo tabelu na poziciji [0,0] sa igracem ciji potez
+            game(btn6.TabIndex); //menjamo tabelu na poziciji [1,2] sa igracem ciji potez
+            if (n % 2 != 0 && againstAI == true)
+                AIgame();
         }
 
         private void btn7_Click(object sender, EventArgs e)
         {
-            btn7.Text = char.ToString(check_whos_move().x_or_o()); //menjamo tekst buttona
-            game(6); //menjamo tabelu na poziciji [0,0] sa igracem ciji potez
+            game(btn7.TabIndex); //menjamo tabelu na poziciji [2,0] sa igracem ciji potez
+            if (n % 2 != 0 && againstAI == true)
+                AIgame();
         }
 
         private void btn8_Click(object sender, EventArgs e)
         {
-            btn8.Text = char.ToString(check_whos_move().x_or_o()); //menjamo tekst buttona
-            game(7); //menjamo tabelu na poziciji [0,0] sa igracem ciji potez
+            game(btn8.TabIndex); //menjamo tabelu na poziciji [2,1] sa igracem ciji potez
+            if (n % 2 != 0 && againstAI == true)
+                AIgame();
         }
 
         private void btn9_Click(object sender, EventArgs e)
         {
-            btn9.Text = char.ToString(check_whos_move().x_or_o()); //menjamo tekst buttona
-            game(8); //menjamo tabelu na poziciji [0,0] sa igracem ciji potez
+            game(btn9.TabIndex); //menjamo tabelu na poziciji [2,2] sa igracem ciji potez, tekst na tom dugmetu i njegovu funkcionalnost
+            if(n%2!=0 && againstAI==true)
+                AIgame();
+            
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            againstAI = true;
         }
 
         private Player check_whos_move()
@@ -89,38 +105,64 @@ namespace WindowsFormsApp1
                 return p1; //player1 uvek igra prvi, tj. on uvek igra tokom poteza parnog indeksa
 
             else
-                return p2;
+                return ai;
         }
         private void change_table(int polje) //menja polje u tabeli da bi se mogao proveriti kraj igre
         {
-            switch(polje)
+            switch (polje)
             {
                 case 0:
+                    btn1.Text = check_whos_move().x_or_o().ToString();
                     table[0, 0] = check_whos_move().x_or_o();
+                    btn1.Enabled = false;
                     break;
+
                 case 1:
+                    btn2.Text = check_whos_move().x_or_o().ToString();
                     table[0, 1] = check_whos_move().x_or_o();
+                    btn2.Enabled = false;
                     break;
+
                 case 2:
+                    btn3.Text = check_whos_move().x_or_o().ToString();
                     table[0, 2] = check_whos_move().x_or_o();
+                    btn3.Enabled = false;
                     break;
+
                 case 3:
+                    btn4.Text = check_whos_move().x_or_o().ToString();
                     table[1, 0] = check_whos_move().x_or_o();
+                    btn4.Enabled = false;
                     break;
+
                 case 4:
+                    btn5.Text = check_whos_move().x_or_o().ToString();
                     table[1, 1] = check_whos_move().x_or_o();
+                    btn5.Enabled = false;
                     break;
+
                 case 5:
+                    btn6.Text = check_whos_move().x_or_o().ToString();
                     table[1, 2] = check_whos_move().x_or_o();
+                    btn6.Enabled = false;
                     break;
+
                 case 6:
+                    btn7.Text = check_whos_move().x_or_o().ToString();
                     table[2, 0] = check_whos_move().x_or_o();
+                    btn7.Enabled = false;
                     break;
+
                 case 7:
+                    btn8.Text = check_whos_move().x_or_o().ToString();
                     table[2, 1] = check_whos_move().x_or_o();
+                    btn8.Enabled = false;
                     break;
+
                 case 8:
+                    btn9.Text = check_whos_move().x_or_o().ToString();
                     table[2, 2] = check_whos_move().x_or_o();
+                    btn9.Enabled = false;
                     break;
             }
         }
@@ -128,13 +170,13 @@ namespace WindowsFormsApp1
         {
             for (int r = 0; r < 3; r++)
             {
-                if (table[r, 1] == table[r, 2] && table[r, 2] == table[r, 0])
+                if ((table[r, 0] == table[r, 1]) && (table[r, 1] == table[r, 2]))
                 {
                     if (table[r, 0] == p1.x_or_o())
                     {
                         return +10;
                     }
-                    else if (table[r, 0] == p2.x_or_o())
+                    else if (table[r, 0] == ai.x_or_o())
                     {
                         return -10;
                     }
@@ -143,52 +185,120 @@ namespace WindowsFormsApp1
 
             for (int c = 0; c < 3; c++)
             {
-                if (table[1, c] == table[2, c] && table[2, c] == table[0, c])
+                if ((table[0, c] == table[1, c]) && (table[1, c] == table[2, c]))
                 {
                     if (table[0, c] == p1.x_or_o())
                     {
                         return +10;
                     }
-                    else if (table[0, c] == p2.x_or_o())
+                    else if (table[0, c] == ai.x_or_o())
                     {
                         return -10;
                     }
                 }
             }
-
-            if (table[1, 1] == table[2, 2] && table[2, 2] == table[3, 3])
+            if ((table[0, 0] == table[1, 1]) && (table[1, 1] == table[2, 2]))
             {
-                if (table[1, 1] == p1.x_or_o())
+                if (table[0, 0] == p1.x_or_o())
                 {
                     return +10;
                 }
-                else if (table[1, 1] == p2.x_or_o())
+                else if (table[0, 0] == ai.x_or_o())
                 {
                     return -10;
                 }
             }
 
-            else if (n != 8)
-                return -1;
+            else if ((table[0, 2] == table[1, 1]) && (table[1, 1] == table[2, 0]))
+            {
+                if (table[0, 2] == p1.x_or_o())
+                {
+                    return +10;
+                }
+                else if (table[0, 2] == ai.x_or_o())
+                {
+                    return -10;
+                }
+            }
 
-            return 0;
+            else if (n == 8)
+                return 0;
+
+            return -1;
         }
-        void game(int polje)
+        public void game(int polje)
         {
             change_table(polje);
             n++;
 
             if (end_of_game() == 10)
+            {
                 MessageBox.Show($"Winner is '{p1.x_or_o()}'");
+                Application.Exit();
+            }
 
             else if (end_of_game() == -10)
-                MessageBox.Show($"Winner is '{p2.x_or_o()}'");
+            {
+                MessageBox.Show($"Winner is '{ai.x_or_o()}'");
+                Application.Exit();
+            }
 
             else if (end_of_game() == 0)
+            {
                 MessageBox.Show("Tie!");
+                Application.Exit();
+            }
         }
 
-        
+        void AIgame()
+        {
+            ai.choose_move(table,p1);
+            switch(ai.Row)
+            {
+                case 0:
+                    switch (ai.Column)
+                    {
+                        case 0:
+                            game(0);
+                            break;
+                        case 1:
+                            game(1);
+                            break;
+                        case 2:
+                            game(2);
+                            break;
+                    }
+                    break;
+                case 1:
+                    switch (ai.Column)
+                    {
+                        case 0:
+                            game(3);
+                            break;
+                        case 1:
+                            game(4);
+                            break;
+                        case 2:
+                            game(5);
+                            break;
+                    }
+                    break;
+                case 2:
+                    switch (ai.Column)
+                    {
+                        case 0:
+                            game(6);
+                            break;
+                        case 1:
+                            game(7);
+                            break;
+                        case 2:
+                            game(8);
+                            break;
+                    }
+                    break;
+            }
+        }
     }
 }
 

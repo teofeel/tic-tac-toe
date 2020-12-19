@@ -9,7 +9,6 @@ namespace WindowsFormsApp1
     class Player
     {
         private bool first_player;
-        private int points;
         public bool firstPlayer
         {
             get { return first_player; }
@@ -26,11 +25,6 @@ namespace WindowsFormsApp1
                 return 'X';
             else
                 return 'O';
-        }
-
-        public void addPoints()
-        {
-            points++;
         }
     }
 }
